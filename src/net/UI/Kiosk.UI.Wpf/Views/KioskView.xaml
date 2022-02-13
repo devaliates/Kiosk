@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Kiosk.UI.Wpf.Views.KioskView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kiosk.UI.Wpf.Views"
+             xmlns:viewmodels="clr-namespace:Kiosk.UI.Wpf.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:KioskViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="uc">
+    <Grid>
+        <StackPanel>
+            <Label
+                FontWeight="Bold"
+                Content="{Binding KioskElement.Name}"
+                FontSize="16"
+                Foreground="{Binding KioskElement.Rengi, Converter={StaticResource stringToColor}}"/>
+            <ItemsControl
+                ItemsSource="{Binding Magazalar}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            FontSize="16"
+                            Background="{Binding Rengi, Converter={StaticResource stringToColor}}"
+                            Content="{Binding Name}"
+                            Command="{Binding ElementName=uc, Path=DataContext.SelectMagazaCommand}"
+                            CommandParameter="{Binding .}"
+                            Foreground="White"
+                            Margin="3"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock
+                FontWeight="Bold"
+                TextWrapping="Wrap"
+                Text="{Binding Yol}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
